@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "tipster",
+    "slug": "tipster",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "tipster"
+}
