@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
 
@@ -61,7 +61,13 @@ const Login = () => {
         <View style={styles.forgotPassword}>
           <Text style={styles.textDark}>
             Don't have an account?
-            <Text style={styles.text}> Sign Up Now</Text>
+            <Text
+              style={styles.text}
+              onPress={() => navigation.navigate("SignUp")}
+            >
+              {" "}
+              Sign Up Now
+            </Text>
           </Text>
         </View>
       </View>

@@ -2,17 +2,13 @@ import { useState } from "react";
 import React from "react";
 import {
   StyleSheet,
-  Button,
   View,
-  SafeAreaView,
   Text,
-  Alert,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
 } from "react-native";
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,15 +16,15 @@ const SignUp = () => {
     <View style={styles.content}>
       <View style={styles.card}>
         <Text style={styles.headline}>Tipster</Text>
-        <Text style={styles.textLeft}>Sign in to your account</Text>
+        <Text style={styles.textLeft}>Creat a new account</Text>
         <View style={styles.container}>
           <TouchableOpacity style={styles.solidButton} underlayColor="#fff">
             <Text style={styles.text}>Connect with Google</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.borderButton} underlayColor="#fff">
-            <Text style={styles.text}>Connect with Apple</Text>
-          </TouchableOpacity>
         </View>
+        <Text style={styles.line}>
+          <Text style={styles.or}>or</Text>
+        </Text>
         <View style={styles.container}>
           <Text style={styles.textLeft}>Email</Text>
           <TextInput
@@ -40,12 +36,7 @@ const SignUp = () => {
             placeholderTextColor="#484848"
             keyboardType="email-address"
           />
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Text style={styles.text}>Password</Text>
-            <Text style={styles.textDark}>Forgot Password?</Text>
-          </View>
+          <Text style={styles.textLeft}>Password</Text>
           <TextInput
             label="Password"
             onChangeText={(text) => setPassword(text)}
@@ -61,8 +52,14 @@ const SignUp = () => {
         </TouchableOpacity>
         <View style={styles.forgotPassword}>
           <Text style={styles.textDark}>
-            Don't have an account?
-            <Text style={styles.text}> Sign Up Now</Text>
+            Have an account?
+            <Text
+              style={styles.text}
+              onPress={() => navigation.navigate("Login")}
+            >
+              {" "}
+              Sign In Now
+            </Text>
           </Text>
         </View>
       </View>
@@ -93,10 +90,20 @@ const styles = StyleSheet.create({
   },
   textDark: {
     color: "#707070",
+    textAlign: "center",
   },
   headline: {
     fontSize: 80,
     color: "#EDEDED",
+  },
+  line: {
+    borderBottomColor: "white",
+    borderBottomWidth: 2,
+  },
+  or: {
+    color: "white",
+    paddingTop: 10,
+    textAlign: "center",
   },
   item: {
     height: 40,
