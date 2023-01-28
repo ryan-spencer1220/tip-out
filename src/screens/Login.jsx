@@ -11,6 +11,7 @@ import {
 const Login = ({ navigation }) => {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   return (
     <View style={styles.content}>
@@ -33,7 +34,7 @@ const Login = ({ navigation }) => {
           <TextInput
             label="Email"
             value={text}
-            onChangeText={(text) => setText(text)}
+            onChangeText={(email) => setEmail(email)}
             style={styles.item}
             placeholder="you@example.com"
             placeholderTextColor="#484848"
@@ -47,7 +48,7 @@ const Login = ({ navigation }) => {
           </View>
           <TextInput
             label="Password"
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={(pw) => setPassword(pw)}
             style={styles.item}
             secureTextEntry={true}
             placeholder="password"
