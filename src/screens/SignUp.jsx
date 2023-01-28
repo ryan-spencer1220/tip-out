@@ -9,8 +9,19 @@ import {
 } from "react-native";
 
 const SignUp = ({ navigation }) => {
-  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  async function signUpWithEmail() {
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    if (error) Alert.alert(error.message);
+    setLoading(false);
+  }
 
   return (
     <View style={styles.content}>
@@ -30,7 +41,7 @@ const SignUp = ({ navigation }) => {
           <TextInput
             label="Email"
             value={text}
-            onChangeText={(text) => setText(text)}
+            onChangeText={(email) => setEmail(email)}
             style={styles.item}
             placeholder="you@example.com"
             placeholderTextColor="#484848"
@@ -39,7 +50,7 @@ const SignUp = ({ navigation }) => {
           <Text style={styles.textLeft}>Password</Text>
           <TextInput
             label="Password"
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={(pw) => setPassword(pw)}
             style={styles.item}
             secureTextEntry={true}
             placeholder="password"
@@ -47,7 +58,12 @@ const SignUp = ({ navigation }) => {
             keyboardType="default"
           />
         </View>
-        <TouchableOpacity style={styles.submitButton} underlayColor="#fff">
+        <TouchableOpacity
+          style={styles.submitButton}
+          underlayColor="#fff"
+          disabled={loading}
+          onPress={() => signUpWithEmail()}
+        >
           <Text style={styles.text}>Sign In</Text>
         </TouchableOpacity>
         <View style={styles.forgotPassword}>

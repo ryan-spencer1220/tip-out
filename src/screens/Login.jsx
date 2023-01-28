@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "../config/supabaseConfig";
 import React from "react";
 import {
   StyleSheet,
@@ -9,9 +10,20 @@ import {
 } from "react-native";
 
 const Login = ({ navigation }) => {
-  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  async function signInWithEmail() {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) Alert.alert(error.message);
+    setLoading(false);
+  }
 
   return (
     <View style={styles.content}>
@@ -56,7 +68,12 @@ const Login = ({ navigation }) => {
             keyboardType="default"
           />
         </View>
-        <TouchableOpacity style={styles.submitButton} underlayColor="#fff">
+        <TouchableOpacity
+          style={styles.submitButton}
+          underlayColor="#fff"
+          disabled={loading}
+          onPress={() => signInWithEmail()}
+        >
           <Text style={styles.text}>Sign In</Text>
         </TouchableOpacity>
         <View style={styles.forgotPassword}>
