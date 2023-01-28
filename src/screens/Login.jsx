@@ -45,7 +45,7 @@ const Login = ({ navigation }) => {
           <Text style={styles.textLeft}>Email</Text>
           <TextInput
             label="Email"
-            value={text}
+            value={email}
             onChangeText={(email) => setEmail(email)}
             style={styles.item}
             placeholder="you@example.com"
@@ -60,6 +60,7 @@ const Login = ({ navigation }) => {
           </View>
           <TextInput
             label="Password"
+            value={password}
             onChangeText={(pw) => setPassword(pw)}
             style={styles.item}
             secureTextEntry={true}
