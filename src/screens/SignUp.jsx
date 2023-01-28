@@ -7,14 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { supabase } from "../config/supabaseConfig";
 
 const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVerification, setPasswordVerification] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function signUpWithEmail() {
     setLoading(true);
+    if (password !== passwordVerification) {
+      return;
+    }
     const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -28,7 +33,7 @@ const SignUp = ({ navigation }) => {
     <View style={styles.content}>
       <View style={styles.card}>
         <Text style={styles.headline}>Tipster</Text>
-        <Text style={styles.textLeft}>Creat a new account</Text>
+        <Text style={styles.textLeft}>Create a new account</Text>
         <View style={styles.container}>
           <TouchableOpacity style={styles.solidButton} underlayColor="#fff">
             <Text style={styles.text}>Connect with Google</Text>
@@ -58,6 +63,16 @@ const SignUp = ({ navigation }) => {
             placeholderTextColor="#484848"
             keyboardType="default"
           />
+          <Text style={styles.textLeft}>Re-Enter Password</Text>
+          <TextInput
+            label="PasswordVerification"
+            onChangeText={(pw) => setPasswordVerification(pw)}
+            style={styles.item}
+            secureTextEntry={true}
+            placeholder="password"
+            placeholderTextColor="#484848"
+            keyboardType="default"
+          />
         </View>
         <TouchableOpacity
           style={styles.submitButton}
@@ -65,7 +80,7 @@ const SignUp = ({ navigation }) => {
           disabled={loading}
           onPress={() => signUpWithEmail()}
         >
-          <Text style={styles.text}>Sign In</Text>
+          <Text style={styles.text}>Sign Up</Text>
         </TouchableOpacity>
         <View style={styles.forgotPassword}>
           <Text style={styles.textDark}>
