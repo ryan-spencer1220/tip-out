@@ -7,6 +7,7 @@ import { Session } from "@supabase/supabase-js";
 import "react-native-url-polyfill/auto";
 import { useState, useEffect } from "react";
 import { supabase } from "./src/config/supabaseConfig";
+import Dashboard from "./src/screens/Dashboard";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,11 @@ export default function App() {
               },
             }}
           />
+          {session && session.user ? (
+            <Dashboard key={session.user.id} session={session} />
+          ) : (
+            <Login />
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </NotificationsProvider>
