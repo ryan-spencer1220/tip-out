@@ -27,6 +27,8 @@ const SignUp = ({ navigation }) => {
 
     if (error) Alert.alert(error.message);
     setLoading(false);
+    setEmail("");
+    setPassword("");
   }
 
   return (

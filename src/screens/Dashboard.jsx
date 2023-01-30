@@ -10,7 +10,11 @@ import {
 } from "react-native";
 
 const Dashboard = ({ navigation }) => {
-  return <View style={styles.content}></View>;
+  return (
+    <View style={styles.content}>
+      <Text style={styles.headline}>Dashboard</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

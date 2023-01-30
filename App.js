@@ -12,7 +12,7 @@ import Dashboard from "./src/screens/Dashboard";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [session, setSession] = useState();
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
