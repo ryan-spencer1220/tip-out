@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
 import React from "react";
 import {
+  Alert,
   StyleSheet,
   View,
   Text,

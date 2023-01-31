@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
 import React from "react";
 import {
@@ -7,12 +6,23 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
+import TabNavigation from "../components/TabNavigation";
 
 const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.content}>
-      <Text style={styles.headline}>Dashboard</Text>
+      {/* <View>
+        <Button
+          title="Sign Out"
+          onPress={() => {
+            supabase.auth.signOut();
+          }}
+        />
+      </View>
+      <Text style={styles.headline}>Dashboard</Text> */}
+      <TabNavigation />
     </View>
   );
 };
