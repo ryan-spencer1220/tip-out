@@ -1,5 +1,4 @@
 import { supabase } from "../config/supabaseConfig";
-import React from "react";
 import {
   StyleSheet,
   View,
@@ -8,12 +7,11 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import TabNavigation from "../components/TabNavigation";
 
 const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.content}>
-      {/* <View>
+      <View>
         <Button
           title="Sign Out"
           onPress={() => {
@@ -21,8 +19,7 @@ const Dashboard = ({ navigation }) => {
           }}
         />
       </View>
-      <Text style={styles.headline}>Dashboard</Text> */}
-      <TabNavigation />
+      <Text style={styles.headline}>Dashboard</Text>
     </View>
   );
 };

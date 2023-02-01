@@ -1,17 +1,19 @@
-import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "../screens/Login";
-import SignUp from "../screens/SignUp";
 import Dashboard from "../screens/Dashboard";
+import Account from "../screens/Account";
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+function TabNavigation() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Dashboard" component={Dashboard} />
+      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Login" component={Login} />
-      <Tab.Screen name="SignUp" component={SignUp} />
+      <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
 }
+
+export default TabNavigation;
