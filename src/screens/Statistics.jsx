@@ -8,8 +8,8 @@ import {
   Button,
 } from "react-native";
 
-const Calendar = () => {
-  return <View>Calendar</View>;
+const Statistics = () => {
+  return <View></View>;
 };
 
-export default Calendar;
+export default Statistics;
