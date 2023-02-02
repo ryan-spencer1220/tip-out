@@ -9,7 +9,11 @@ import {
 } from "react-native";
 
 const Statistics = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text>Statistics</Text>
+    </View>
+  );
 };
 
 export default Statistics;

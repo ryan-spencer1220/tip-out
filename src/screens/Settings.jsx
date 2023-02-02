@@ -1,19 +1,20 @@
+import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
+import React from "react";
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Button,
 } from "react-native";
 
-const Calendar = () => {
+const Settings = ({ navigation }) => {
   return (
     <View>
-      <Text>Calendar</Text>
+      <Text>Settings</Text>
     </View>
   );
 };
 
-export default Calendar;
+export default Settings;
