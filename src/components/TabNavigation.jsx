@@ -12,6 +12,14 @@ function TabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarStyle: {
+          height: 90,
+          paddingHorizontal: 5,
+          paddingTop: 0,
+          backgroundColor: "rgba(34,36,40,1)",
+          position: "absolute",
+          borderTopWidth: 0,
+        },
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === "Dashboard") {
             return (
@@ -26,7 +34,7 @@ function TabNavigation() {
               <Ionicons
                 name={focused ? "calendar" : "calendar-outline"}
                 size={size}
-                color="#2b825b"
+                color={color}
               />
             );
           } else if (route.name === "Statistics") {
@@ -48,7 +56,7 @@ function TabNavigation() {
           }
         },
         tabBarInactiveTintColor: "gray",
-        tabBarActiveTintColor: "tomato",
+        tabBarActiveTintColor: "#2b825b",
       })}
     >
       <Tab.Screen name="Dashboard" component={Dashboard} />
