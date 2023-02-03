@@ -12,6 +12,7 @@ function TabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarStyle: {
           height: 90,
           paddingHorizontal: 5,

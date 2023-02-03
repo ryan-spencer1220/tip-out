@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#1C1C1C",
+    backgroundColor: "#282828",
   },
   container: {
     marginTop: 20,
