@@ -10,25 +10,38 @@ import {
 const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.content}>
-      <View></View>
-      <Text style={styles.headline}>Dashboard</Text>
+      <View style={styles.card}></View>
+      <View style={styles.card}></View>
+      <View style={styles.content}>
+        <View style={styles.smCard}></View>
+        <View style={styles.smCard}></View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   content: {
-    alignItems: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#282828",
+    flex: 3,
+    backgroundColor: "#1C1C1C",
   },
   container: {
     marginTop: 20,
     marginBottom: 20,
   },
   card: {
-    margin: 40,
+    backgroundColor: "#232323",
+    width: "100%",
+    height: 200,
+    borderRadius: 10,
+    margin: 10,
+  },
+  smCard: {
+    backgroundColor: "#232323",
+    width: "50%",
+    height: 200,
+    borderRadius: 10,
+    margin: 10,
   },
   text: {
     color: "#EDEDED",
