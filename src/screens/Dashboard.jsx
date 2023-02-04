@@ -1,4 +1,3 @@
-import { supabase } from "../config/supabaseConfig";
 import {
   StyleSheet,
   View,
@@ -11,14 +10,7 @@ import {
 const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.content}>
-      <View>
-        <Button
-          title="Sign Out"
-          onPress={() => {
-            supabase.auth.signOut();
-          }}
-        />
-      </View>
+      <View></View>
       <Text style={styles.headline}>Dashboard</Text>
     </View>
   );
