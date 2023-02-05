@@ -4,6 +4,7 @@ import Dashboard from "../screens/Dashboard";
 import Settings from "../screens/Settings";
 import Calendar from "../screens/Calendar";
 import Statistics from "../screens/Statistics";
+import AddTip from "../screens/AddTip";
 import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
@@ -38,6 +39,14 @@ function TabNavigation() {
                 color={color}
               />
             );
+          } else if (route.name === "AddTip") {
+            return (
+              <Ionicons
+                name={focused ? "home" : "home-outline"}
+                size={size}
+                color={color}
+              />
+            );
           } else if (route.name === "Statistics") {
             return (
               <Ionicons
@@ -62,6 +71,7 @@ function TabNavigation() {
     >
       <Tab.Screen name="Dashboard" component={Dashboard} />
       <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Add Tip" component={AddTip} />
       <Tab.Screen name="Statistics" component={Statistics} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
