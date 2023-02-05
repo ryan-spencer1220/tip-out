@@ -8,6 +8,7 @@ import "react-native-url-polyfill/auto";
 import { useState, useEffect } from "react";
 import { supabase } from "./src/config/supabaseConfig";
 import TabNavigation from "./src/components/TabNavigation";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
+        <StatusBar style="light" />
         <Stack.Navigator initialRouteName="Login">
           {session && session.user ? (
             <Stack.Screen

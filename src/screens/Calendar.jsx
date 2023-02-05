@@ -10,18 +10,26 @@ import {
 
 const Calendar = () => {
   return (
-    <View style={styles.content}>
-      <Text>Calendar</Text>
+    <View style={styles.background}>
+      <View style={styles.content}></View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    alignItems: "stretch",
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#1c1c1c",
+  },
   content: {
     alignItems: "stretch",
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#282828",
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
   },
   container: {
     marginTop: 20,

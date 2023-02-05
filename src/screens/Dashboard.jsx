@@ -19,51 +19,8 @@ import {
 const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.content}>
-      <View style={styles.card}>
-        <LineChart
-          data={{
-            labels: ["January", "February", "March", "April", "May", "June"],
-            datasets: [
-              {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                ],
-              },
-            ],
-          }}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
-          yAxisLabel="$"
-          yAxisSuffix="k"
-          yAxisInterval={1} // optional, defaults to 1
-          chartConfig={{
-            backgroundColor: "#e26a00",
-            backgroundGradientFrom: "#fb8c00",
-            backgroundGradientTo: "#ffa726",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726",
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-          }}
-        />
-      </View>
+      <View style={styles.card}></View>
+      <Text style={styles.headline}>Weekly Tips</Text>
       <View style={styles.card}></View>
       <View style={styles.content}>
         <View style={styles.smCard}></View>
@@ -75,7 +32,6 @@ const Dashboard = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   content: {
-    flex: 3,
     backgroundColor: "#1C1C1C",
   },
   container: {
@@ -107,8 +63,10 @@ const styles = StyleSheet.create({
     color: "#707070",
   },
   headline: {
-    fontSize: 80,
+    fontSize: 30,
+    padding: 10,
     color: "#EDEDED",
+    textAlign: "center",
   },
   line: {
     borderBottomColor: "white",
