@@ -6,10 +6,28 @@ import Calendar from "../screens/Calendar";
 import Statistics from "../screens/Statistics";
 import AddTip from "../screens/AddTip";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  useFonts,
+  Inter_900Black,
+  Inter_400Regular,
+  Inter_700Bold,
+  Inter_800ExtraBold,
+} from "@expo-google-fonts/inter";
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigation() {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+    Inter_400Regular,
+    Inter_700Bold,
+    Inter_800ExtraBold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -68,11 +86,76 @@ function TabNavigation() {
         tabBarActiveTintColor: "#2b825b",
       })}
     >
-      <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="Add Tip" component={AddTip} />
-      <Tab.Screen name="Statistics" component={Statistics} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          title: "Dashboard",
+          headerStyle: {
+            backgroundColor: "#1c1c1c",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontFamily: "Inter_800ExtraBold",
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Calendar"
+        component={Calendar}
+        options={{
+          title: "Calendar",
+          headerStyle: {
+            backgroundColor: "#1c1c1c",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontFamily: "Inter_800ExtraBold",
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Add Tip"
+        component={AddTip}
+        options={{
+          title: "Add Tip",
+          headerStyle: {
+            backgroundColor: "#1c1c1c",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontFamily: "Inter_800ExtraBold",
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Statistics"
+        component={Statistics}
+        options={{
+          title: "Statistics",
+          headerStyle: {
+            backgroundColor: "#1c1c1c",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontFamily: "Inter_800ExtraBold",
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          title: "Settings",
+          headerStyle: {
+            backgroundColor: "#1c1c1c",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontFamily: "Inter_800ExtraBold",
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 }

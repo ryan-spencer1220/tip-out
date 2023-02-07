@@ -49,7 +49,57 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>UIStatusBarStyle</key>
-  <string>UIStatusBarStyleDefault</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AvenirLTStd-Black.otf</string>
+		<string>AvenirLTStd-BlackOblique.otf</string>
+		<string>AvenirLTStd-Book.otf</string>
+		<string>AvenirLTStd-BookOblique.otf</string>
+		<string>AvenirLTStd-Heavy.otf</string>
+		<string>AvenirLTStd-HeavyOblique.otf</string>
+		<string>AvenirLTStd-Light.otf</string>
+		<string>AvenirLTStd-LightOblique.otf</string>
+		<string>AvenirLTStd-Medium.otf</string>
+		<string>AvenirLTStd-MediumOblique.otf</string>
+		<string>AvenirLTStd-Oblique.otf</string>
+		<string>AvenirLTStd-Roman.otf</string>
+		<string>Gotham-Black.otf</string>
+		<string>Gotham-Bold.otf</string>
+		<string>Gotham-BookItalic.otf</string>
+		<string>Gotham-Light.otf</string>
+		<string>Gotham-Thin.otf</string>
+		<string>Gotham-ThinItalic.otf</string>
+		<string>Gotham-UltraItalic.otf</string>
+		<string>Gotham-XLight.otf</string>
+		<string>Gotham-XLightItalic.otf</string>
+		<string>Gilroy-Bold.ttf</string>
+		<string>Gilroy-Heavy.ttf</string>
+		<string>Gilroy-Light.ttf</string>
+		<string>Gilroy-Medium.ttf</string>
+		<string>Gilroy-Regular.ttf</string>
+		<string>GothamBold.ttf</string>
+		<string>GothamBoldItalic.ttf</string>
+		<string>GothamBook.ttf</string>
+		<string>GothamBookItalic.ttf</string>
+		<string>GothamLight.ttf</string>
+		<string>GothamLightItalic.ttf</string>
+		<string>GothamMedium.ttf</string>
+		<string>GothamMediumItalic.ttf</string>
+		<string>GothamMedium_1.ttf</string>
+		<string>ProductSans-Black.ttf</string>
+		<string>ProductSans-BlackItalic.ttf</string>
+		<string>ProductSans-Bold.ttf</string>
+		<string>ProductSans-BoldItalic.ttf</string>
+		<string>ProductSans-Italic.ttf</string>
+		<string>ProductSans-Light.ttf</string>
+		<string>ProductSans-LightItalic.ttf</string>
+		<string>ProductSans-Medium.ttf</string>
+		<string>ProductSans-MediumItalic.ttf</string>
+		<string>ProductSans-Regular.ttf</string>
+		<string>ProductSans-Thin.ttf</string>
+		<string>ProductSans-ThinItalic.ttf</string>
+	</array>
 </dict>
 </plist>

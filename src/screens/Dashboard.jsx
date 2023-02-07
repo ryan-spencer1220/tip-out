@@ -8,31 +8,45 @@ import {
   Dimensions,
 } from "react-native";
 import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from "react-native-chart-kit";
+  useFonts,
+  Inter_900Black,
+  Inter_400Regular,
+} from "@expo-google-fonts/inter";
 
 const Dashboard = ({ navigation }) => {
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+    Inter_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.content}>
-      <View style={styles.card}></View>
-      <Text style={styles.headline}>Weekly Tips</Text>
-      <View style={styles.card}></View>
-      <View style={styles.content}>
-        <View style={styles.smCard}></View>
-        <View style={styles.smCard}></View>
-      </View>
+    <View style={styles.background}>
+      <View style={styles.content}></View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    alignItems: "stretch",
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#1c1c1c",
+  },
   content: {
-    backgroundColor: "#1C1C1C",
+    alignItems: "stretch",
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#282828",
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
+    marginTop: 10,
+    marginStart: 10,
+    marginEnd: 10,
   },
   container: {
     marginTop: 20,
@@ -67,6 +81,7 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "#EDEDED",
     textAlign: "center",
+    fontFamily: "Inter_400Regular",
   },
   line: {
     borderBottomColor: "white",

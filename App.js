@@ -37,7 +37,6 @@ export default function App() {
               key={session.user.id}
               session={session}
               options={{
-                headerLeft: null,
                 headerStyle: {
                   backgroundColor: "#1C1C1C",
                   color: "white",

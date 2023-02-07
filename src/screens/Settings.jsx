@@ -12,24 +12,36 @@ import {
 
 const Settings = ({ navigation }) => {
   return (
-    <View style={styles.content}>
-      <Text>Settings</Text>
-      <Button
-        title="Sign Out"
-        onPress={() => {
-          supabase.auth.signOut();
-        }}
-      />
+    <View style={styles.background}>
+      <View style={styles.content}>
+        <Button
+          title="Sign Out"
+          onPress={() => {
+            supabase.auth.signOut();
+          }}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    alignItems: "stretch",
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#1c1c1c",
+  },
   content: {
     alignItems: "stretch",
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#282828",
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
+    marginTop: 10,
+    marginStart: 10,
+    marginEnd: 10,
   },
   container: {
     marginTop: 20,

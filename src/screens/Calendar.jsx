@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#282828",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
+    marginTop: 10,
+    marginStart: 10,
+    marginEnd: 10,
   },
   container: {
     marginTop: 20,
