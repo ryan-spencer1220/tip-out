@@ -10,6 +10,7 @@ import {
   useFonts,
   Inter_900Black,
   Inter_400Regular,
+  Inter_500Medium,
   Inter_700Bold,
   Inter_800ExtraBold,
 } from "@expo-google-fonts/inter";
@@ -20,6 +21,7 @@ function TabNavigation() {
   let [fontsLoaded] = useFonts({
     Inter_900Black,
     Inter_400Regular,
+    Inter_500Medium,
     Inter_700Bold,
     Inter_800ExtraBold,
   });
@@ -152,7 +154,8 @@ function TabNavigation() {
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: "Inter_500Medium",
+            fontSize: 26,
           },
         }}
       />
