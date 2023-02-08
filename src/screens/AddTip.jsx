@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
+import { SelectList } from "react-native-dropdown-select-list";
 import React from "react";
 import {
   Alert,
@@ -13,7 +14,23 @@ import {
 const AddTip = ({ navigation }) => {
   const [cashTips, setCashTips] = useState(0);
   const [creditTips, setCreditTips] = useState(0);
+  const [hours, setHours] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState("");
+
+  const data = [
+    { key: "2", value: "Appliances" },
+    { key: "3", value: "Cameras" },
+    { key: "5", value: "Vegetables" },
+    { key: "6", value: "Diary Products" },
+    { key: "7", value: "Drinks" },
+  ];
+
+  const addTip = async (cashTips, creditTips, hours) => {
+    await supabase
+      .from("tips")
+      .insert({ cash_tips: 6, credit_tips: 6, hours: 6 });
+  };
 
   return (
     <View style={styles.content}>
@@ -43,22 +60,21 @@ const AddTip = ({ navigation }) => {
           </View>
           <View style={styles.outline}>
             <Text style={styles.textLeft}>Job</Text>
-            <TextInput
-              label="Enter Amount"
-              value={cashTips}
-              onChangeText={(cash) => setCashTips(cash)}
-              style={styles.item}
-              placeholder="Enter Amount"
-              placeholderTextColor="#484848"
-              keyboardType="number-pad"
-            />
+            <View style={styles.item}>
+              <SelectList
+                setSelected={(val) => setSelected(val)}
+                data={data}
+                save="value"
+                label="Categories"
+              />
+            </View>
             <Text style={styles.textLeft}>Hours</Text>
             <TextInput
               label="Enter Amount"
-              value={creditTips}
-              onChangeText={(credit) => setCreditTips(credit)}
+              value={hours}
+              onChangeText={(hours) => setHours(hours)}
               style={styles.item}
-              placeholder="Enter Amount"
+              placeholder="Enter Hours"
               placeholderTextColor="#484848"
               keyboardType="number-pad"
             />
@@ -69,8 +85,7 @@ const AddTip = ({ navigation }) => {
           label="Enter Amount"
           value={creditTips}
           onChangeText={(credit) => setCreditTips(credit)}
-          style={styles.item}
-          placeholder="Enter Amount"
+          style={styles.textArea}
           placeholderTextColor="#484848"
           keyboardType="number-pad"
           numberOfLines={4}
@@ -79,7 +94,7 @@ const AddTip = ({ navigation }) => {
           style={styles.submitButton}
           underlayColor="#fff"
           disabled={loading}
-          onPress={() => signInWithEmail()}
+          onPress={() => addTip()}
         >
           <Text style={styles.text}>Submit</Text>
         </TouchableOpacity>
@@ -90,9 +105,7 @@ const AddTip = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   content: {
-    alignItems: "stretch",
     flex: 1,
-    justifyContent: "center",
     backgroundColor: "#1C1C1C",
   },
   container: {
@@ -120,7 +133,8 @@ const styles = StyleSheet.create({
   outline: {
     borderColor: "#3c3c3c",
     borderRadius: 10,
-    padding: 20,
+    paddingBottom: 20,
+    paddingTop: 20,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     width: "100%",
@@ -140,6 +154,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3c3c3c",
     color: "white",
+  },
+  textArea: {
+    marginTop: 12,
+    marginBottom: 12,
+    padding: 10,
+    backgroundColor: "#222222",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#3c3c3c",
+    color: "white",
+    height: 100,
+    textAlignVertical: "top",
   },
   submitButton: {
     paddingTop: 14,
