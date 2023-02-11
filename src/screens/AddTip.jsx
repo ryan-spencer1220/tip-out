@@ -14,7 +14,7 @@ import {
 const AddTip = ({ navigation }) => {
   const [cashTips, setCashTips] = useState(0);
   const [creditTips, setCreditTips] = useState(0);
-  const [hours, setHours] = useState(0);
+  const [hours, setHours] = useState(5);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [job, setJob] = useState(data);
@@ -25,44 +25,39 @@ const AddTip = ({ navigation }) => {
     { key: "3", value: "bartender" },
   ];
 
-  const addTip = async (cashTips, creditTips, hours, notes) => {
+  const addTip = async (cashTips, creditTips, job, hours, notes) => {
+    console.log(cashTips, creditTips);
     setError("");
-    if (!cashTips || !creditTips || !hours) {
-      setError("Please complete all form fields");
-      return;
-    }
+    // if (!cashTips || !creditTips || !hours) {
+    //   setError("Please complete all form fields");
+    //   return;
+    // }
 
     const { data, error } = await supabase.from("tips").insert([
       {
         cash_tips: cashTips,
-        credit_tips: 555,
-        // job: "Server",
-        // hours: hours,
-        // notes: notes,
+        credit_tips: creditTips,
+        job: "Server",
+        hours: hours,
+        notes: notes,
       },
     ]);
 
     if (error) {
       setError(error.message);
     }
-    if (data) {
-      setError("It worked!");
-    }
-    return tips;
   };
 
   return (
     <View style={styles.content}>
       <View style={styles.card}>
-        {error && <Text style={styles.textLeft}>{error}</Text>}
-        <Text style={styles.textLeft}>{cashTips}</Text>
         <View style={styles.container}>
           <View style={styles.outline}>
             <Text style={styles.textLeft}>Cash Tips</Text>
             <TextInput
               label="Enter Amount"
               value={cashTips}
-              onChangeText={(cash) => setCashTips(cash)}
+              onChangeText={(cash) => setCashTips(+cash)}
               style={styles.item}
               placeholder="Enter Amount"
               placeholderTextColor="#484848"
@@ -72,7 +67,7 @@ const AddTip = ({ navigation }) => {
             <TextInput
               label="Enter Amount"
               value={creditTips}
-              onChangeText={(credit) => setCreditTips(credit)}
+              onChangeText={(credit) => setCreditTips(+credit)}
               style={styles.item}
               placeholder="Enter Amount"
               placeholderTextColor="#484848"
@@ -109,13 +104,13 @@ const AddTip = ({ navigation }) => {
           style={styles.textArea}
           placeholderTextColor="#484848"
           keyboardType="default"
-          numberOfLines={4}
+          numberOfLines={2}
         />
         <TouchableOpacity
           style={styles.submitButton}
           underlayColor="#fff"
           disabled={loading}
-          onPress={addTip}
+          onPress={() => addTip(cashTips, creditTips, job, hours, notes)}
         >
           <Text style={styles.text}>Submit</Text>
         </TouchableOpacity>
