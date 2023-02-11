@@ -98,7 +98,9 @@ function TabNavigation() {
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: "Inter_500Medium",
+            fontSize: 22,
+            letterSpacing: 0.5,
           },
         }}
       />
@@ -112,7 +114,9 @@ function TabNavigation() {
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: "Inter_500Medium",
+            fontSize: 22,
+            letterSpacing: 0.5,
           },
         }}
       />
@@ -126,7 +130,9 @@ function TabNavigation() {
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: "Inter_500Medium",
+            fontSize: 22,
+            letterSpacing: 0.5,
           },
         }}
       />
@@ -140,7 +146,9 @@ function TabNavigation() {
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: "Inter_500Medium",
+            fontSize: 22,
+            letterSpacing: 0.5,
           },
         }}
       />
@@ -155,7 +163,8 @@ function TabNavigation() {
           headerTintColor: "#fff",
           headerTitleStyle: {
             fontFamily: "Inter_500Medium",
-            fontSize: 26,
+            fontSize: 22,
+            letterSpacing: 0.5,
           },
         }}
       />

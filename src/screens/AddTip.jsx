@@ -16,25 +16,46 @@ const AddTip = ({ navigation }) => {
   const [creditTips, setCreditTips] = useState(0);
   const [hours, setHours] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState("");
+  const [error, setError] = useState("");
+  const [job, setJob] = useState(data);
+  const [notes, setNotes] = useState("");
 
   const data = [
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
+    { key: "2", value: "server" },
+    { key: "3", value: "bartender" },
   ];
 
-  const addTip = async (cashTips, creditTips, hours) => {
-    await supabase
-      .from("tips")
-      .insert({ cash_tips: 6, credit_tips: 6, hours: 6 });
+  const addTip = async (cashTips, creditTips, hours, notes) => {
+    setError("");
+    if (!cashTips || !creditTips || !hours) {
+      setError("Please complete all form fields");
+      return;
+    }
+
+    const { data, error } = await supabase.from("tips").insert([
+      {
+        cash_tips: cashTips,
+        credit_tips: 555,
+        // job: "Server",
+        // hours: hours,
+        // notes: notes,
+      },
+    ]);
+
+    if (error) {
+      setError(error.message);
+    }
+    if (data) {
+      setError("It worked!");
+    }
+    return tips;
   };
 
   return (
     <View style={styles.content}>
       <View style={styles.card}>
+        {error && <Text style={styles.textLeft}>{error}</Text>}
+        <Text style={styles.textLeft}>{cashTips}</Text>
         <View style={styles.container}>
           <View style={styles.outline}>
             <Text style={styles.textLeft}>Cash Tips</Text>
@@ -62,7 +83,7 @@ const AddTip = ({ navigation }) => {
             <Text style={styles.textLeft}>Job</Text>
             <View style={styles.item}>
               <SelectList
-                setSelected={(val) => setSelected(val)}
+                setSelected={(job) => setJob(job)}
                 data={data}
                 save="value"
                 label="Categories"
@@ -83,18 +104,18 @@ const AddTip = ({ navigation }) => {
         <Text style={styles.textLeft}>Notes</Text>
         <TextInput
           label="Enter Amount"
-          value={creditTips}
-          onChangeText={(credit) => setCreditTips(credit)}
+          value={notes}
+          onChangeText={(notes) => setNotes(notes)}
           style={styles.textArea}
           placeholderTextColor="#484848"
-          keyboardType="number-pad"
+          keyboardType="default"
           numberOfLines={4}
         />
         <TouchableOpacity
           style={styles.submitButton}
           underlayColor="#fff"
           disabled={loading}
-          onPress={() => addTip()}
+          onPress={addTip}
         >
           <Text style={styles.text}>Submit</Text>
         </TouchableOpacity>
