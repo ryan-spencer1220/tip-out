@@ -76,12 +76,19 @@ const AddTip = ({ navigation }) => {
           </View>
           <View style={styles.outline}>
             <Text style={styles.textLeft}>Job</Text>
-            <View style={styles.item}>
+            <View style={styles.selectList}>
               <SelectList
                 setSelected={(job) => setJob(job)}
                 data={data}
                 save="value"
                 label="Categories"
+                boxStyles={{
+                  backgroundColor: "#222222",
+                  color: "#707070",
+                  borderColor: "#3c3c3c",
+                }}
+                inputStyles={{ color: "#707070" }}
+                dropdownTextStyles={{ color: "#707070" }}
               />
             </View>
             <Text style={styles.textLeft}>Hours</Text>
@@ -170,6 +177,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3c3c3c",
     color: "white",
+  },
+  selectList: {
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   textArea: {
     marginTop: 12,
