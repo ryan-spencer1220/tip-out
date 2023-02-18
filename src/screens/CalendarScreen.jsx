@@ -27,17 +27,29 @@ const CalendarScreen = () => {
         </View>
       </View>
       <Calendar
-        style={{
-          borderWidth: 1,
-          borderColor: "gray",
-          height: 350,
+        theme={{
+          backgroundColor: "black",
+          calendarBackground: "black",
+          textSectionTitleColor: "#b6c1cd",
+          textSectionTitleDisabledColor: "#d9e1e8",
+          selectedDayBackgroundColor: "#00adf5",
+          selectedDayTextColor: "#ffffff",
+          todayTextColor: "#2b825b",
+          dayTextColor: "gray",
+          textDisabledColor: "#d9e1e8",
+          dotColor: "#00adf5",
+          selectedDotColor: "#ffffff",
+          arrowColor: "#2b825b",
+          disabledArrowColor: "#d9e1e8",
+          monthTextColor: "#2b825b",
+          indicatorColor: "#2b825b",
+          textDayFontWeight: "300",
+          textMonthFontWeight: "bold",
+          textDayHeaderFontWeight: "300",
+          textDayFontSize: 16,
+          textMonthFontSize: 16,
+          textDayHeaderFontSize: 16,
         }}
-        theme={
-          {
-            // backgroundColor: "black",
-            // calendarBackground: "black",
-          }
-        }
       />
     </View>
   );
