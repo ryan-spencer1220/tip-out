@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Login from "../screens/Login";
 import Dashboard from "../screens/Dashboard";
 import Settings from "../screens/Settings";
-import Calendar from "../screens/Calendar";
+import Calendar from "../screens/CalendarScreen";
 import Statistics from "../screens/Statistics";
 import AddTip from "../screens/AddTip";
 import { Ionicons } from "@expo/vector-icons";
