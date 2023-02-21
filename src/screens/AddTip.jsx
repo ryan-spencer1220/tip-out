@@ -29,13 +29,13 @@ const AddTip = ({ navigation }) => {
     { key: "3", value: "bartender" },
   ];
 
-  const addTip = async (cashTips, creditTips, job, hours, notes) => {
-    console.log(cashTips, creditTips);
+  const addTip = async (date, cashTips, creditTips, job, hours, notes) => {
     setError("");
     const { data, error } = await supabase.from("tips").insert([
       {
-        cash_tips: cashTips,
-        credit_tips: creditTips,
+        // date: date,
+        cash_tips: 50,
+        credit_tips: 100,
         job: "Server",
         hours: hours,
         notes: notes,
