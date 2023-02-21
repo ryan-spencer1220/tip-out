@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
 import { SelectList } from "react-native-dropdown-select-list";
+import DatePicker from "react-native-date-picker";
 import React from "react";
 import {
   Alert,
@@ -9,9 +10,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
 
 const AddTip = ({ navigation }) => {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const [cashTips, setCashTips] = useState(0);
   const [creditTips, setCreditTips] = useState(0);
   const [hours, setHours] = useState(5);
@@ -28,11 +32,6 @@ const AddTip = ({ navigation }) => {
   const addTip = async (cashTips, creditTips, job, hours, notes) => {
     console.log(cashTips, creditTips);
     setError("");
-    // if (!cashTips || !creditTips || !hours) {
-    //   setError("Please complete all form fields");
-    //   return;
-    // }
-
     const { data, error } = await supabase.from("tips").insert([
       {
         cash_tips: cashTips,
@@ -52,6 +51,28 @@ const AddTip = ({ navigation }) => {
     <View style={styles.content}>
       <View style={styles.card}>
         <View style={styles.container}>
+          <DatePicker
+            modal
+            open={open}
+            date={date}
+            onConfirm={(date) => {
+              setOpen(false);
+              setDate(date);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
+          <Text style={styles.textLeft}>Enter Date</Text>
+          <TextInput
+            label="Enter Date"
+            value={date.toString()}
+            onChangeText={(date) => setDate(date)}
+            style={styles.item}
+            placeholder="Enter Date"
+            placeholderTextColor="#484848"
+            onPressIn={() => setOpen(true)}
+          />
           <View style={styles.outline}>
             <Text style={styles.textLeft}>Cash Tips</Text>
             <TextInput
@@ -132,11 +153,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#1C1C1C",
   },
   container: {
-    marginTop: 20,
     marginBottom: 20,
   },
   card: {
-    margin: 40,
+    marginLeft: 40,
+    marginRight: 40,
   },
   text: {
     color: "#EDEDED",
