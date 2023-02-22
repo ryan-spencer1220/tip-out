@@ -11,7 +11,23 @@ import {
 const Statistics = () => {
   return (
     <View style={styles.background}>
-      <View style={styles.content}></View>
+      <View style={styles.content}>
+        <View style={styles.row}>
+          <View style={styles.smallCard}>
+            <Text style={styles.text}>Hourly Rate</Text>
+            <Text style={styles.text}>$35.45/hr</Text>
+            <Text style={styles.text}>Last 30 Days</Text>
+          </View>
+          <View style={styles.smallCard}>
+            <Text style={styles.text}>Daily income</Text>
+            <Text style={styles.text}>$250/day</Text>
+            <Text style={styles.text}>7 Day Average</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.largeCard}></View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -25,8 +41,7 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "stretch",
-    flex: 1,
-    justifyContent: "center",
+    flex: 2,
     backgroundColor: "#282828",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
@@ -38,8 +53,24 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
-  card: {
-    margin: 40,
+  row: {
+    flexDirection: "row",
+  },
+  smallCard: {
+    width: "45%",
+    aspectRatio: 1 / 1,
+    position: "relative",
+    backgroundColor: "#1c1c1c",
+    borderRadius: 20,
+    margin: 10,
+  },
+  largeCard: {
+    width: "95%",
+    aspectRatio: 2 / 1,
+    position: "relative",
+    backgroundColor: "#1c1c1c",
+    borderRadius: 20,
+    margin: 10,
   },
   text: {
     color: "#EDEDED",
