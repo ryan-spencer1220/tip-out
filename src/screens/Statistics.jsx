@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Statistics = () => {
   return (
@@ -14,14 +15,16 @@ const Statistics = () => {
       <View style={styles.content}>
         <View style={styles.row}>
           <View style={styles.smallCard}>
-            <Text style={styles.text}>Hourly Rate</Text>
-            <Text style={styles.text}>$35.45/hr</Text>
-            <Text style={styles.text}>Last 30 Days</Text>
+            <FontAwesome5 name="money-bill" size={48} color="#2b825b" />
+            <Text style={styles.smallText}>Hourly Rate</Text>
+            <Text style={styles.largeText}>$35.45/hr</Text>
+            <Text style={styles.smallText}>Last 30 Days</Text>
           </View>
           <View style={styles.smallCard}>
-            <Text style={styles.text}>Daily income</Text>
-            <Text style={styles.text}>$250/day</Text>
-            <Text style={styles.text}>7 Day Average</Text>
+            <FontAwesome5 name="hand-holding-usd" size={48} color="#2b825b" />
+            <Text style={styles.smallText}>Daily income</Text>
+            <Text style={styles.largeText}>$250/day</Text>
+            <Text style={styles.smallText}>7 Day Average</Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -57,12 +60,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   smallCard: {
+    flex: 1,
     width: "45%",
     aspectRatio: 1 / 1,
     position: "relative",
     backgroundColor: "#1c1c1c",
     borderRadius: 20,
     margin: 10,
+    justifyContent: "center",
   },
   largeCard: {
     width: "95%",
@@ -72,12 +77,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 10,
   },
-  text: {
+  largeText: {
     color: "#EDEDED",
-    textAlign: "center",
+    fontSize: 24,
   },
-  textLeft: {
-    color: "#EDEDED",
+  smallText: {
+    color: "gray",
   },
   textDark: {
     color: "#707070",
