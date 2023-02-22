@@ -8,6 +8,7 @@ import {
   Button,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import StatsChart from "../components/StatsChart";
 
 const Statistics = () => {
   return (
@@ -28,7 +29,9 @@ const Statistics = () => {
           </View>
         </View>
         <View style={styles.row}>
-          <View style={styles.largeCard}></View>
+          <View style={styles.largeCard}>
+            <StatsChart />
+          </View>
         </View>
       </View>
     </View>
@@ -83,6 +86,7 @@ const styles = StyleSheet.create({
   },
   smallText: {
     color: "gray",
+    fontFamily: "Inter_800ExtraBold",
   },
   textDark: {
     color: "#707070",
