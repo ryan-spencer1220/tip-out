@@ -1,4 +1,6 @@
 import { LineChart } from "react-native-chart-kit";
+import { Alert, StyleSheet, View, Text } from "react-native";
+import { Dimensions } from "react-native";
 
 const StatsChart = () => {
   return (
@@ -22,8 +24,6 @@ const StatsChart = () => {
         }}
         width={Dimensions.get("window").width} // from react-native
         height={220}
-        yAxisLabel="$"
-        yAxisSuffix="k"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#e26a00",
