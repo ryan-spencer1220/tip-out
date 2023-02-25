@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
 import React from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
@@ -8,20 +9,39 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 
 const Settings = ({ navigation }) => {
   return (
-    <View style={styles.background}>
-      <View style={styles.content}>
-        <Button
-          title="Sign Out"
-          onPress={() => {
-            supabase.auth.signOut();
-          }}
-        />
-      </View>
-    </View>
+    <SafeAreaView style={styles.background}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.content}>
+          <View style={styles.row}>
+            <View style={styles.largeCard}></View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.smallCard}>
+              <Button
+                title="Sign Out"
+                onPress={() => {
+                  supabase.auth.signOut();
+                }}
+              />
+            </View>
+            <View style={styles.smallCard}></View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.smallCard}></View>
+            <View style={styles.smallCard}></View>
+          </View>
+          <Text style={styles.largeText}>What Your Tracking</Text>
+          <Text style={styles.largeText}>App Settings</Text>
+          <Text style={styles.largeText}>Terms & Agreements</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -34,8 +54,7 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "stretch",
-    flex: 1,
-    justifyContent: "center",
+    flex: 2,
     backgroundColor: "#282828",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
@@ -47,15 +66,34 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
-  card: {
-    margin: 40,
+  row: {
+    flexDirection: "row",
   },
-  text: {
-    color: "#EDEDED",
-    textAlign: "center",
+  smallCard: {
+    flex: 1,
+    width: "45%",
+    aspectRatio: 1 / 1,
+    position: "relative",
+    backgroundColor: "#1c1c1c",
+    borderRadius: 20,
+    margin: 10,
+    justifyContent: "center",
   },
-  textLeft: {
+  largeCard: {
+    width: "95%",
+    aspectRatio: 2 / 1,
+    position: "relative",
+    backgroundColor: "#1c1c1c",
+    borderRadius: 20,
+    margin: 10,
+  },
+  largeText: {
     color: "#EDEDED",
+    fontSize: 24,
+  },
+  smallText: {
+    color: "gray",
+    fontFamily: "Inter_800ExtraBold",
   },
   textDark: {
     color: "#707070",

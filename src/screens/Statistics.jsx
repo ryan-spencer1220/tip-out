@@ -29,9 +29,7 @@ const Statistics = () => {
           </View>
         </View>
         <View style={styles.row}>
-          <View style={styles.largeCard}>
-            <StatsChart />
-          </View>
+          <View style={styles.largeCard}>{/* <StatsChart /> */}</View>
         </View>
       </View>
     </View>
