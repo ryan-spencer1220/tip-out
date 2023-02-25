@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { supabase } from "../config/supabaseConfig";
-import React from "react";
-import { FontAwesome5 } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Button,
+  Switch,
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const Settings = ({ navigation }) => {
+  const [darkMode, setDarkMode] = useState(true);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -22,21 +27,53 @@ const Settings = ({ navigation }) => {
             <View style={styles.largeCard}></View>
           </View>
           <View style={styles.row}>
-            <View style={styles.smallCard}>
-              <Button
-                title="Sign Out"
-                onPress={() => {
-                  supabase.auth.signOut();
-                }}
-              />
-            </View>
-            <View style={styles.smallCard}></View>
+            <TouchableOpacity
+              style={styles.smallCard}
+              onPress={() => {
+                supabase.auth.signOut();
+              }}
+            >
+              <Entypo name="log-out" size={40} color="#2b825b" />
+              <Text style={styles.largeText}>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.smallCard}
+              onPress={() => setDarkMode(!darkMode)}
+            >
+              {darkMode ? (
+                <Ionicons name="moon" size={40} color="#2b825b" />
+              ) : (
+                <Ionicons name="ios-sunny" size={40} color="#2b825b" />
+              )}
+              <Text style={styles.largeText}>
+                {darkMode ? "Dark Mode" : "Light Mode"}
+              </Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.row}>
-            <View style={styles.smallCard}></View>
-            <View style={styles.smallCard}></View>
+            <TouchableOpacity style={styles.smallCard}>
+              <FontAwesome name="bell" size={40} color="#2b825b" />
+              <Text style={styles.largeText}>Reminders</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.smallCard}>
+              <FontAwesome5 name="file-export" size={40} color="#2b825b" />
+              <Text style={styles.largeText}>Export Data</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={styles.largeText}>What Your Tracking</Text>
+          <Text style={styles.largeText}>Analytics Settings</Text>
+          <TouchableOpacity style={styles.settingsRow}>
+            <Text style={styles.smallText}>Cash & Credit Tips</Text>
+            <Switch
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.settingsRow}></TouchableOpacity>
+          <TouchableOpacity style={styles.settingsRow}></TouchableOpacity>
+          <TouchableOpacity style={styles.settingsRow}></TouchableOpacity>
           <Text style={styles.largeText}>App Settings</Text>
           <Text style={styles.largeText}>Terms & Agreements</Text>
         </View>
@@ -54,7 +91,6 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "stretch",
-    flex: 2,
     backgroundColor: "#282828",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
@@ -69,6 +105,17 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
   },
+  settingsRow: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    height: 50,
+    marginTop: 4,
+    marginBottom: 4,
+    backgroundColor: "#1c1c1c",
+    borderRadius: 10,
+  },
   smallCard: {
     flex: 1,
     width: "45%",
@@ -78,6 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 10,
     justifyContent: "center",
+    paddingStart: 20,
   },
   largeCard: {
     width: "95%",
@@ -90,6 +138,12 @@ const styles = StyleSheet.create({
   largeText: {
     color: "#EDEDED",
     fontSize: 24,
+    fontFamily: "Inter_800ExtraBold",
+  },
+  mediumText: {
+    color: "#EDEDED",
+    fontSize: 18,
+    fontFamily: "Inter_800ExtraBold",
   },
   smallText: {
     color: "gray",
