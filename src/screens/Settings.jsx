@@ -17,11 +17,10 @@ import { Entypo } from "@expo/vector-icons";
 
 const Settings = ({ navigation }) => {
   const [darkMode, setDarkMode] = useState(true);
-  const [isEnabled, setIsEnabled] = useState(false);
   const [cashSetting, setCashSetting] = useState(true);
-  const [hourlySetting, setHourlySetting] = useState(true);
-  const [salesSetting, setSalesSetting] = useState(true);
-  const [coversSetting, setCoversSetting] = useState(true);
+  const [hourlySetting, setHourlySetting] = useState(false);
+  const [salesSetting, setSalesSetting] = useState(false);
+  const [coversSetting, setCoversSetting] = useState(false);
 
   return (
     <SafeAreaView style={styles.background}>
@@ -183,6 +182,7 @@ const styles = StyleSheet.create({
     color: "#EDEDED",
     fontSize: 24,
     fontFamily: "Inter_800ExtraBold",
+    paddingVertical: 10,
   },
   mediumText: {
     color: "#EDEDED",
