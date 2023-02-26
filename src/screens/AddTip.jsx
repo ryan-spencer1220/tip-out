@@ -4,13 +4,11 @@ import { SelectList } from "react-native-dropdown-select-list";
 import DatePicker from "react-native-date-picker";
 import React from "react";
 import {
-  Alert,
   StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Button,
 } from "react-native";
 
 const AddTip = ({ navigation }) => {
@@ -183,12 +181,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     width: "100%",
   },
-  or: {
-    color: "white",
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
   item: {
     marginTop: 12,
     marginBottom: 12,
@@ -223,25 +215,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#2E2E2E",
     fontSize: 16,
-  },
-  borderButton: {
-    marginTop: 10,
-    paddingTop: 14,
-    paddingBottom: 14,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#3c3c3c",
-  },
-  solidButton: {
-    marginTop: 10,
-    paddingTop: 14,
-    paddingBottom: 14,
-    backgroundColor: "#2E2E2E",
-    borderRadius: 5,
-    borderWidth: 1,
-  },
-  forgotPassword: {
-    margin: 38,
   },
 });
 
