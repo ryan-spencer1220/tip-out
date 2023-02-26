@@ -26,7 +26,7 @@ const Settings = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.content}>
           <View style={styles.row}>
-            <View style={styles.largeCard}></View>
+            <TouchableOpacity style={styles.largeCard}></TouchableOpacity>
           </View>
           <View style={styles.row}>
             <TouchableOpacity
