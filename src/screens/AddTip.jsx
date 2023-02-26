@@ -16,7 +16,7 @@ const AddTip = ({ navigation }) => {
   const [open, setOpen] = useState(false);
   const [cashTips, setCashTips] = useState(0);
   const [creditTips, setCreditTips] = useState(0);
-  const [hours, setHours] = useState(5);
+  const [hours, setHours] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [job, setJob] = useState(data);
@@ -31,9 +31,9 @@ const AddTip = ({ navigation }) => {
     setError("");
     const { data, error } = await supabase.from("tips").insert([
       {
-        // date: date,
-        cash_tips: 50,
-        credit_tips: 100,
+        date: date.toISOString(),
+        cash_tips: cashTips,
+        credit_tips: creditTips,
         job: "Server",
         hours: hours,
         notes: notes,
@@ -136,7 +136,7 @@ const AddTip = ({ navigation }) => {
           style={styles.submitButton}
           underlayColor="#fff"
           disabled={loading}
-          onPress={() => addTip(cashTips, creditTips, job, hours, notes)}
+          onPress={() => addTip(date, cashTips, creditTips, job, hours, notes)}
         >
           <Text style={styles.text}>Submit</Text>
         </TouchableOpacity>
