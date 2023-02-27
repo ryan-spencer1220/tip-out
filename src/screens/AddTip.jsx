@@ -31,7 +31,7 @@ const AddTip = ({ navigation }) => {
     setError("");
     const { data, error } = await supabase.from("tips").insert([
       {
-        date: date.toISOString(),
+        date: date,
         cash_tips: cashTips,
         credit_tips: creditTips,
         job: "Server",
@@ -64,7 +64,7 @@ const AddTip = ({ navigation }) => {
           <Text style={styles.textLeft}>Enter Date</Text>
           <TextInput
             label="Enter Date"
-            value={date.toString()}
+            value={date.toISOString()}
             onChangeText={(date) => setDate(date)}
             style={styles.item}
             placeholder="Enter Date"
