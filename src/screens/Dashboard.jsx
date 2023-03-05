@@ -1,32 +1,43 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from "react-native";
 import {
   useFonts,
   Inter_900Black,
   Inter_400Regular,
 } from "@expo-google-fonts/inter";
+import { useState, useEffect } from "react";
+import { supabase } from "../config/supabaseConfig";
 
 const Dashboard = ({ navigation }) => {
-  let [fontsLoaded] = useFonts({
-    Inter_900Black,
-    Inter_400Regular,
-  });
+  const [userTips, setUserTips] = useState();
 
-  if (!fontsLoaded) {
-    return null;
+  async function getTips() {
+    const tips = await supabase.from("tips").select();
+    setUserTips(tips);
+    console.log(userTips);
   }
 
+  useEffect(() => {
+    getTips();
+  }, []);
+
   return (
-    <View style={styles.background}>
-      <View style={styles.content}></View>
-    </View>
+    <SafeAreaView style={styles.background}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.content}>
+          <View style={styles.row}></View>
+          {userTips &&
+            userTips.data.map((userTip) => (
+              <View style={styles.tipRow}>
+                <Text style={styles.smallText}>{userTip.date}</Text>
+                <Text style={styles.smallText}>${userTip.credit_tips}</Text>
+                <Text style={styles.smallText}>${userTip.cash_tips}</Text>
+                <Text style={styles.smallText}>{userTip.job}</Text>
+                <Text style={styles.smallText}>{userTip.hours} hours</Text>
+              </View>
+            ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -39,8 +50,6 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "stretch",
-    flex: 1,
-    justifyContent: "center",
     backgroundColor: "#282828",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
@@ -52,58 +61,24 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
-  card: {
-    backgroundColor: "#232323",
+  row: {
+    flexDirection: "row",
+  },
+  tipRow: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
     width: "100%",
-    height: 200,
+    height: 50,
+    marginTop: 4,
+    marginBottom: 4,
+    backgroundColor: "#1c1c1c",
     borderRadius: 10,
-    margin: 10,
   },
-  smCard: {
-    backgroundColor: "#232323",
-    width: "50%",
-    height: 200,
-    borderRadius: 10,
-    margin: 10,
-  },
-  text: {
-    color: "#EDEDED",
-    textAlign: "center",
-  },
-  textLeft: {
-    color: "#EDEDED",
-  },
-  textDark: {
-    color: "#707070",
-  },
-  headline: {
-    fontSize: 30,
-    padding: 10,
-    color: "#EDEDED",
-    textAlign: "center",
-    fontFamily: "Inter_400Regular",
-  },
-  line: {
-    borderBottomColor: "white",
-    borderBottomWidth: 2,
-    margin: 10,
-  },
-  or: {
-    color: "white",
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
-  item: {
-    height: 40,
-    marginTop: 12,
-    marginBottom: 12,
-    padding: 10,
-    backgroundColor: "#222222",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#3c3c3c",
-    color: "white",
+  smallText: {
+    color: "gray",
+    fontFamily: "Inter_800ExtraBold",
+    marginStart: 16,
   },
 });
 

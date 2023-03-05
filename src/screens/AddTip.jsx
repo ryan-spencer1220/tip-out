@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { supabase } from "../config/supabaseConfig";
+import { useEffect, useState } from "react";
+import { supabase, auth } from "../config/supabaseConfig";
 import { SelectList } from "react-native-dropdown-select-list";
 import DatePicker from "react-native-date-picker";
 import React from "react";
@@ -21,6 +21,7 @@ const AddTip = ({ navigation }) => {
   const [error, setError] = useState("");
   const [job, setJob] = useState(data);
   const [notes, setNotes] = useState("");
+  const [userID, setUserID] = useState();
 
   const data = [
     { key: "2", value: "server" },
@@ -31,6 +32,7 @@ const AddTip = ({ navigation }) => {
     setError("");
     const { data, error } = await supabase.from("tips").insert([
       {
+        user_id: userID,
         date: date,
         cash_tips: cashTips,
         credit_tips: creditTips,
@@ -44,6 +46,17 @@ const AddTip = ({ navigation }) => {
       setError(error.message);
     }
   };
+
+  const findUserID = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUserID(user.id);
+  };
+
+  useEffect(() => {
+    findUserID();
+  }, [userID]);
 
   return (
     <View style={styles.content}>
