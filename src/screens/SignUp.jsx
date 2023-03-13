@@ -34,7 +34,7 @@ const SignUp = ({ navigation }) => {
   return (
     <View style={styles.content}>
       <View style={styles.card}>
-        <Text style={styles.headline}>TipOut</Text>
+        <Text style={styles.headline}>Tip Out</Text>
         <Text style={styles.textLeft}>Create a new account</Text>
         <View style={styles.container}>
           <TouchableOpacity style={styles.solidButton} underlayColor="#fff">

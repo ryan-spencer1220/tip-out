@@ -33,7 +33,7 @@ const AddTip = ({ navigation }) => {
     const { data, error } = await supabase.from("tips").insert([
       {
         user_id: userID,
-        date: date,
+        date: format(date),
         cash_tips: cashTips,
         credit_tips: creditTips,
         job: "Server",
@@ -53,6 +53,20 @@ const AddTip = ({ navigation }) => {
     } = await supabase.auth.getUser();
     setUserID(user.id);
   };
+
+  function format(inputDate) {
+    let date, month, year;
+
+    date = inputDate.getDate();
+    month = inputDate.getMonth() + 1;
+    year = inputDate.getFullYear();
+
+    date = date.toString().padStart(2, "0");
+
+    month = month.toString().padStart(2, "0");
+
+    return `${date}/${month}/${year}`;
+  }
 
   useEffect(() => {
     findUserID();
