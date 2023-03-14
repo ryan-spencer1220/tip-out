@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   RefreshControl,
-  Image,
+  TouchableOpacity,
 } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../config/supabaseConfig";
@@ -13,6 +13,7 @@ import { supabase } from "../config/supabaseConfig";
 const Dashboard = ({ navigation }) => {
   const [userTips, setUserTips] = useState();
   const [refreshing, setRefreshing] = useState(false);
+  const [timeframe, setTimeframe] = useState(7);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -24,12 +25,11 @@ const Dashboard = ({ navigation }) => {
   async function getTips() {
     const tips = await supabase.from("tips").select();
     setUserTips(tips);
-    console.log(userTips);
   }
 
   useEffect(() => {
     getTips();
-  }, []);
+  }, [refreshing]);
 
   function format(date) {
     let year = date.slice(0, 4);
@@ -53,16 +53,35 @@ const Dashboard = ({ navigation }) => {
         }
       >
         <View style={styles.content}>
-          {/* <Image source={require("../assets/loading.gif")} /> */}
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.sortButton}>
+              <Text>All Time</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.sortButton}>
+              <Text>Yearly</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.sortButton}>
+              <Text>Monthly</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.sortButton}>
+              <Text>Weekly</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.row}></View>
           {userTips &&
             userTips.data.map((userTip) => (
-              <View style={styles.tipRow}>
+              <View style={styles.tipRow} key={userTip.id}>
                 <Text style={styles.smallText}>{format(userTip.date)}</Text>
-                <Text style={styles.smallText}>${userTip.credit_tips}</Text>
-                <Text style={styles.smallText}>${userTip.cash_tips}</Text>
                 <Text style={styles.smallText}>{userTip.job}</Text>
-                <Text style={styles.smallText}>{userTip.hours} hours</Text>
+                <Text style={styles.smallText}>{userTip.hours}hrs</Text>
+                <View style={styles.padding}>
+                  <Text style={styles.smallText}>
+                    Credit: ${userTip.credit_tips}
+                  </Text>
+                  <Text style={styles.smallText}>
+                    Cash: ${userTip.cash_tips}
+                  </Text>
+                </View>
               </View>
             ))}
         </View>
@@ -93,11 +112,21 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    justifyContent: "center",
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    padding: 10,
+  },
+  padding: {
+    padding: 10,
   },
   tipRow: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-evenly",
     width: "100%",
     height: 50,
     marginTop: 4,
@@ -109,6 +138,14 @@ const styles = StyleSheet.create({
     color: "gray",
     fontFamily: "Inter_800ExtraBold",
     marginStart: 16,
+  },
+  sortButton: {
+    padding: 8,
+    backgroundColor: "#2b825b",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#2E2E2E",
+    fontSize: 16,
   },
 });
 
