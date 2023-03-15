@@ -47,8 +47,11 @@ const AddTip = ({ navigation }) => {
       setErrorMessage(error.message);
       console.log(error);
     }
-    if (data) {
-      console.log(data);
+    if (!error) {
+      setCashTips();
+      setCreditTips();
+      setHours();
+      setNotes();
       navigation.navigate("Dashboard");
     }
   };
@@ -71,7 +74,7 @@ const AddTip = ({ navigation }) => {
 
     month = month.toString().padStart(2, "0");
 
-    return `${date}/${month}/${year}`;
+    return `${year}/${month}/${date}`;
   }
 
   useEffect(() => {
