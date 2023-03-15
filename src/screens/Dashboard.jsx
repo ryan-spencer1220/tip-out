@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../config/supabaseConfig";
+import SwitchSelector from "react-native-switch-selector";
 
 const Dashboard = ({ navigation }) => {
   const [userTips, setUserTips] = useState();
@@ -39,6 +40,12 @@ const Dashboard = ({ navigation }) => {
     return `${day}/${month}/${year}`;
   }
 
+  const options = [
+    { label: "01:00", value: "1" },
+    { label: "01:30", value: "1.5" },
+    { label: "02:00", value: "2" },
+  ];
+
   return (
     <SafeAreaView style={styles.background}>
       <ScrollView
@@ -54,18 +61,13 @@ const Dashboard = ({ navigation }) => {
       >
         <View style={styles.content}>
           <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.sortButton}>
-              <Text>All Time</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.sortButton}>
-              <Text>Yearly</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.sortButton}>
-              <Text>Monthly</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.sortButton}>
-              <Text>Weekly</Text>
-            </TouchableOpacity>
+            <SwitchSelector
+              options={options}
+              initial={0}
+              onPress={(value) =>
+                console.log(`Call onPress with value: ${value}`)
+              }
+            />
           </View>
           <View style={styles.row}></View>
           {userTips &&

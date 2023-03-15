@@ -6135,6 +6135,13 @@ react-native-swipe-gestures@^1.0.5:
   resolved "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"
   integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
 
+react-native-switch-selector@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/react-native-switch-selector/-/react-native-switch-selector-2.3.0.tgz"
+  integrity sha512-BnhbC7vRu5HIanANszNS5rbrXqYwDggJGg/Xik2NXDA1FSzId/WrxU5hicmmZzTrQSh9N5TS76YsnG1swNzBpA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-url-polyfill@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/react-native-url-polyfill/-/react-native-url-polyfill-1.3.0.tgz"

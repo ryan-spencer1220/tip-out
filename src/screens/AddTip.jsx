@@ -18,7 +18,7 @@ const AddTip = ({ navigation }) => {
   const [creditTips, setCreditTips] = useState(0);
   const [hours, setHours] = useState();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [job, setJob] = useState(data);
   const [notes, setNotes] = useState("");
   const [userID, setUserID] = useState();
@@ -29,7 +29,8 @@ const AddTip = ({ navigation }) => {
   ];
 
   const addTip = async (date, cashTips, creditTips, job, hours, notes) => {
-    setError("");
+    setErrorMessage("");
+    console.log("Date: ", date);
     const { data, error } = await supabase.from("tips").insert([
       {
         user_id: userID,
@@ -43,7 +44,12 @@ const AddTip = ({ navigation }) => {
     ]);
 
     if (error) {
-      setError(error.message);
+      setErrorMessage(error.message);
+      console.log(error);
+    }
+    if (data) {
+      console.log(data);
+      navigation.navigate("Dashboard");
     }
   };
 
@@ -80,6 +86,7 @@ const AddTip = ({ navigation }) => {
             modal
             open={open}
             date={date}
+            mode={"date"}
             onConfirm={(date) => {
               setOpen(false);
               setDate(date);
@@ -91,8 +98,8 @@ const AddTip = ({ navigation }) => {
           <Text style={styles.textLeft}>Enter Date</Text>
           <TextInput
             label="Enter Date"
-            value={date.toISOString()}
-            onChangeText={(date) => setDate(date)}
+            value={format(date)}
+            onChangeText={(date) => setDate(date.toISOString())}
             style={styles.item}
             placeholder="Enter Date"
             placeholderTextColor="#484848"
