@@ -2,9 +2,25 @@ import { supabase } from "../config/supabaseConfig";
 import { StyleSheet, View, Text } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import StatsChart from "../components/StatsChart";
+import { useEffect, useState } from "react";
 
 const Statistics = () => {
+  const [hourlyRate, setHourlyRate] = useState(0);
+  const [dailyIncome, setDailyIncome] = useState(0);
+  const [tipPercentage, setTipPercentage] = useState(0);
+  const [averageShift, setAverageShift] = useState(0);
+
+  const calculateAverageShift = async () => {
+    const tips = await supabase.from("tips").select("hours");
+    const tipsArray = tips.data.map((el) => el.hours);
+    const sum = tipsArray.reduce((acc, cur) => acc + cur);
+    setAverageShift((sum / tipsArray.length).toFixed());
+  };
+
+  useEffect(() => {
+    calculateAverageShift();
+  }, []);
+
   return (
     <View style={styles.background}>
       <View style={styles.content}>
@@ -61,8 +77,8 @@ const Statistics = () => {
                 color="#2b825b"
                 style={{ paddingVertical: 4 }}
               />
-              <Text style={styles.smallText}>Daily income</Text>
-              <Text style={styles.largeText}>6.75hrs</Text>
+              <Text style={styles.smallText}>Average Shift</Text>
+              <Text style={styles.largeText}>{averageShift}hrs</Text>
               <Text style={styles.smallText}>7 Day Average</Text>
             </View>
           </View>
@@ -126,35 +142,6 @@ const styles = StyleSheet.create({
     color: "gray",
     fontFamily: "Inter_800ExtraBold",
     paddingVertical: 2,
-  },
-  textDark: {
-    color: "#707070",
-  },
-  headline: {
-    fontSize: 80,
-    color: "#EDEDED",
-  },
-  line: {
-    borderBottomColor: "white",
-    borderBottomWidth: 2,
-    margin: 10,
-  },
-  or: {
-    color: "white",
-    paddingTop: 10,
-    paddingBottom: 10,
-    textAlign: "center",
-  },
-  item: {
-    height: 40,
-    marginTop: 12,
-    marginBottom: 12,
-    padding: 10,
-    backgroundColor: "#222222",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#3c3c3c",
-    color: "white",
   },
 });
 
