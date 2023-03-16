@@ -14,12 +14,30 @@ const Statistics = () => {
     const tips = await supabase.from("tips").select("hours");
     const tipsArray = tips.data.map((el) => el.hours);
     const sum = tipsArray.reduce((acc, cur) => acc + cur);
-    setAverageShift((sum / tipsArray.length).toFixed());
+    setAverageShift((sum / tipsArray.length).toFixed(1));
+  };
+
+  const calculateHourlyRate = async () => {
+    const creditTips = await supabase.from("tips").select("credit_tips");
+    const cashTips = await supabase.from("tips").select("cash_tips");
+    const creditTipsArray = creditTips.data.map((el) => el.credit_tips);
+    const cashTipsArray = cashTips.data.map((el) => el.cash_tips);
+    const totalTipsArray = creditTipsArray.concat(cashTipsArray);
+    const sum = totalTipsArray.reduce((acc, cur) => acc + cur);
+    setHourlyRate((sum / totalTipsArray.length / averageShift).toFixed(2));
+  };
+
+  const calculateDailyIncome = async () => {
+    const tips = await supabase.from("tips").select("hours");
+    const tipsArray = tips.data.map((el) => el.hours);
+    const sum = tipsArray.reduce((acc, cur) => acc + cur);
+    setAverageShift((sum / tipsArray.length).toFixed(1));
   };
 
   useEffect(() => {
     calculateAverageShift();
-  }, []);
+    calculateHourlyRate();
+  }, [averageShift, hourlyRate]);
 
   return (
     <View style={styles.background}>
@@ -34,7 +52,7 @@ const Statistics = () => {
                 style={{ paddingVertical: 4 }}
               />
               <Text style={styles.smallText}>Hourly Rate</Text>
-              <Text style={styles.largeText}>$35.45/hr</Text>
+              <Text style={styles.largeText}>${hourlyRate}/hr</Text>
               <Text style={styles.smallText}>Last 30 Days</Text>
             </View>
           </View>
