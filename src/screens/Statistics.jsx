@@ -1,14 +1,29 @@
 import { supabase } from "../config/supabaseConfig";
-import { StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const Statistics = () => {
   const [hourlyRate, setHourlyRate] = useState(0);
   const [dailyIncome, setDailyIncome] = useState(0);
   const [tipPercentage, setTipPercentage] = useState(0);
   const [averageShift, setAverageShift] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const calculateAverageShift = async () => {
     const tips = await supabase.from("tips").select("hours");
@@ -24,85 +39,101 @@ const Statistics = () => {
     const cashTipsArray = cashTips.data.map((el) => el.cash_tips);
     const totalTipsArray = creditTipsArray.concat(cashTipsArray);
     const sum = totalTipsArray.reduce((acc, cur) => acc + cur);
-    setHourlyRate((sum / totalTipsArray.length / averageShift).toFixed(2));
+    setHourlyRate((sum / creditTipsArray.length / averageShift).toFixed(2));
   };
 
   const calculateDailyIncome = async () => {
-    const tips = await supabase.from("tips").select("hours");
-    const tipsArray = tips.data.map((el) => el.hours);
-    const sum = tipsArray.reduce((acc, cur) => acc + cur);
-    setAverageShift((sum / tipsArray.length).toFixed(1));
+    const creditTips = await supabase.from("tips").select("credit_tips");
+    const cashTips = await supabase.from("tips").select("cash_tips");
+    const creditTipsArray = creditTips.data.map((el) => el.credit_tips);
+    const cashTipsArray = cashTips.data.map((el) => el.cash_tips);
+    const totalTipsArray = creditTipsArray.concat(cashTipsArray);
+    const sum = totalTipsArray.reduce((acc, cur) => acc + cur);
+    setDailyIncome((sum / totalTipsArray.length).toFixed());
   };
 
   useEffect(() => {
     calculateAverageShift();
     calculateHourlyRate();
-  }, [averageShift, hourlyRate]);
+    calculateDailyIncome();
+  }, [averageShift, hourlyRate, dailyIncome, refreshing]);
 
   return (
-    <View style={styles.background}>
-      <View style={styles.content}>
-        <View style={styles.row}>
-          <View style={styles.smallCard}>
-            <View style={styles.smallCardContent}>
-              <FontAwesome5
-                name="money-bill"
-                size={48}
-                color="#2b825b"
-                style={{ paddingVertical: 4 }}
-              />
-              <Text style={styles.smallText}>Hourly Rate</Text>
-              <Text style={styles.largeText}>${hourlyRate}/hr</Text>
-              <Text style={styles.smallText}>Last 30 Days</Text>
+    <SafeAreaView style={styles.background}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={"#FFFFFF"}
+            tintColor={"#FFFFFF"}
+          />
+        }
+      >
+        <View style={styles.content}>
+          <View style={styles.row}>
+            <View style={styles.smallCard}>
+              <View style={styles.smallCardContent}>
+                <FontAwesome5
+                  name="money-bill"
+                  size={48}
+                  color="#2b825b"
+                  style={{ paddingVertical: 4 }}
+                />
+                <Text style={styles.smallText}>Hourly Rate</Text>
+                <Text style={styles.largeText}>${hourlyRate}/hr</Text>
+                <Text style={styles.smallText}>Last 30 Days</Text>
+              </View>
+            </View>
+            <View style={styles.smallCard}>
+              <View style={styles.smallCardContent}>
+                <FontAwesome5
+                  name="hand-holding-usd"
+                  size={48}
+                  color="#2b825b"
+                  style={{ paddingVertical: 4 }}
+                />
+                <Text style={styles.smallText}>Daily income</Text>
+                <Text style={styles.largeText}>${dailyIncome}/day</Text>
+                <Text style={styles.smallText}>7 Day Average</Text>
+              </View>
             </View>
           </View>
-          <View style={styles.smallCard}>
-            <View style={styles.smallCardContent}>
-              <FontAwesome5
-                name="hand-holding-usd"
-                size={48}
-                color="#2b825b"
-                style={{ paddingVertical: 4 }}
-              />
-              <Text style={styles.smallText}>Daily income</Text>
-              <Text style={styles.largeText}>$250/day</Text>
-              <Text style={styles.smallText}>7 Day Average</Text>
+          <View style={styles.row}>
+            <View style={styles.largeCard}>{/* <StatsChart /> */}</View>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.smallCard}>
+              <View style={styles.smallCardContent}>
+                <FontAwesome5
+                  name="percentage"
+                  size={48}
+                  color="#2b825b"
+                  style={{ paddingVertical: 4 }}
+                />
+                <Text style={styles.smallText}>Tip Percentage</Text>
+                <Text style={styles.largeText}>21.5%</Text>
+                <Text style={styles.smallText}>Hours Per Day</Text>
+              </View>
+            </View>
+            <View style={styles.smallCard}>
+              <View style={styles.smallCardContent}>
+                <AntDesign
+                  name="clockcircle"
+                  size={48}
+                  color="#2b825b"
+                  style={{ paddingVertical: 4 }}
+                />
+                <Text style={styles.smallText}>Average Shift</Text>
+                <Text style={styles.largeText}>{averageShift}hrs</Text>
+                <Text style={styles.smallText}>7 Day Average</Text>
+              </View>
             </View>
           </View>
         </View>
-        <View style={styles.row}>
-          <View style={styles.largeCard}>{/* <StatsChart /> */}</View>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.smallCard}>
-            <View style={styles.smallCardContent}>
-              <FontAwesome5
-                name="percentage"
-                size={48}
-                color="#2b825b"
-                style={{ paddingVertical: 4 }}
-              />
-              <Text style={styles.smallText}>Tip Percentage</Text>
-              <Text style={styles.largeText}>21.5%</Text>
-              <Text style={styles.smallText}>Hours Per Day</Text>
-            </View>
-          </View>
-          <View style={styles.smallCard}>
-            <View style={styles.smallCardContent}>
-              <AntDesign
-                name="clockcircle"
-                size={48}
-                color="#2b825b"
-                style={{ paddingVertical: 4 }}
-              />
-              <Text style={styles.smallText}>Average Shift</Text>
-              <Text style={styles.largeText}>{averageShift}hrs</Text>
-              <Text style={styles.smallText}>7 Day Average</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
