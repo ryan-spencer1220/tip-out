@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../config/supabaseConfig";
 import {
   StyleSheet,
@@ -8,21 +8,59 @@ import {
   Switch,
   SafeAreaView,
   ScrollView,
-  Modal,
-  Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-const Settings = ({ navigation }) => {
+const Settings = () => {
   const [darkMode, setDarkMode] = useState(true);
-  const [cashSetting, setCashSetting] = useState(true);
-  const [hourlySetting, setHourlySetting] = useState(false);
+  const [tipBreakdownSetting, setTipBreakdownSetting] = useState(true);
   const [salesSetting, setSalesSetting] = useState(false);
   const [coversSetting, setCoversSetting] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [userID, setUserID] = useState();
+
+  const findUserID = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUserID(user.id);
+  };
+
+  const updateTipBreakdownSetting = async () => {
+    const { error } = await supabase
+      .from("profiles")
+      .update({ tip_breakdown: tipBreakdownSetting })
+      .eq("id", userID);
+    if (error) {
+      console.log(error);
+    }
+  };
+
+  const updateSalesSetting = async () => {
+    const { error } = await supabase
+      .from("profiles")
+      .update({ sales: salesSetting })
+      .eq("id", userID);
+    if (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCoversSetting = async () => {
+    const { error } = await supabase
+      .from("profiles")
+      .update({ covers: coversSetting })
+      .eq("id", userID);
+    if (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    findUserID();
+  }, []);
 
   return (
     <SafeAreaView style={styles.background}>
@@ -71,21 +109,13 @@ const Settings = ({ navigation }) => {
             <Switch
               style={{ marginLeft: "auto", marginRight: 16 }}
               trackColor={{ false: "#2b825b", true: "#3e3e3e" }}
-              thumbColor={cashSetting ? "#2b825b" : "#f4f3f4"}
+              thumbColor={tipBreakdownSetting ? "#2b825b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={() => setCashSetting(!cashSetting)}
-              value={cashSetting}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsRow}>
-            <Text style={styles.smallText}>Hourly Wage</Text>
-            <Switch
-              style={{ marginLeft: "auto", marginRight: 16 }}
-              trackColor={{ false: "#2b825b", true: "#3e3e3e" }}
-              thumbColor={hourlySetting ? "#2b825b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={() => setHourlySetting(!hourlySetting)}
-              value={hourlySetting}
+              onValueChange={() => {
+                setTipBreakdownSetting(!tipBreakdownSetting);
+                updateTipBreakdownSetting();
+              }}
+              value={tipBreakdownSetting}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.settingsRow}>
@@ -95,7 +125,10 @@ const Settings = ({ navigation }) => {
               trackColor={{ false: "#2b825b", true: "#3e3e3e" }}
               thumbColor={salesSetting ? "#2b825b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={() => setSalesSetting(!salesSetting)}
+              onValueChange={() => {
+                setSalesSetting(!salesSetting);
+                updateSalesSetting();
+              }}
               value={salesSetting}
             />
           </TouchableOpacity>
@@ -106,15 +139,15 @@ const Settings = ({ navigation }) => {
               trackColor={{ false: "#2b825b", true: "#3e3e3e" }}
               thumbColor={coversSetting ? "#2b825b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={() => setCoversSetting(!coversSetting)}
+              onValueChange={() => {
+                setCoversSetting(!coversSetting);
+                updateCoversSetting();
+              }}
               value={coversSetting}
             />
           </TouchableOpacity>
           <Text style={styles.largeText}>App Settings</Text>
-          <TouchableOpacity
-            style={styles.settingsRow}
-            onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity style={styles.settingsRow}>
             <Text style={styles.smallText}>My Jobs</Text>
           </TouchableOpacity>
           <Text style={styles.largeText}>Terms & Agreements</Text>
@@ -142,9 +175,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#282828",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
+    borderBottomEndRadius: 30,
+    borderBottomStartRadius: 30,
     marginTop: 10,
     marginStart: 10,
     marginEnd: 10,
+    marginBottom: 80,
   },
   container: {
     marginTop: 20,

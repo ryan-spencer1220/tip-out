@@ -14,6 +14,13 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [session, setSession] = useState(null);
+  const [addTipSettings, setAddtipSettings] = useState({
+    cash: true,
+    credit: true,
+    wage: false,
+    sales: false,
+    covers: false,
+  });
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

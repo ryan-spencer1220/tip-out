@@ -30,7 +30,6 @@ const AddTip = ({ navigation }) => {
 
   const addTip = async (date, cashTips, creditTips, job, hours, notes) => {
     setErrorMessage("");
-    console.log("Date: ", date);
     const { data, error } = await supabase.from("tips").insert([
       {
         user_id: userID,
