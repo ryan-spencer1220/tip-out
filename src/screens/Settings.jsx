@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "../config/supabaseConfig";
 import {
   StyleSheet,
@@ -8,11 +8,13 @@ import {
   Switch,
   SafeAreaView,
   ScrollView,
+  Button,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { FixedContent } from "../components/FixedContent";
 
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -20,6 +22,13 @@ const Settings = () => {
   const [salesSetting, setSalesSetting] = useState(false);
   const [coversSetting, setCoversSetting] = useState(false);
   const [userID, setUserID] = useState();
+  const modal = [];
+
+  const renderButtons = (links) => {
+    return links.map((link, i) => (
+      <Button key={i} onPress={() => modal[i].openModal()} name={link} />
+    ));
+  };
 
   const findUserID = async () => {
     const {
@@ -27,6 +36,24 @@ const Settings = () => {
     } = await supabase.auth.getUser();
     setUserID(user.id);
   };
+
+  async function getSettings() {
+    const tipSettingDBCall = await supabase
+      .from("profiles")
+      .select("tip_breakdown")
+      .eq("id", userID);
+    const salesSettingDBCall = await supabase
+      .from("profiles")
+      .select("sales")
+      .eq("id", userID);
+    const coversSettingDBCall = await supabase
+      .from("profiles")
+      .select("covers")
+      .eq("id", userID);
+    setTipBreakdownSetting(tipSettingDBCall.data[0].tip_breakdown);
+    setSalesSetting(salesSettingDBCall.data[0].sales);
+    setCoversSetting(coversSettingDBCall.data[0].covers);
+  }
 
   const updateTipBreakdownSetting = async () => {
     const { error } = await supabase
@@ -60,7 +87,8 @@ const Settings = () => {
 
   useEffect(() => {
     findUserID();
-  }, []);
+    getSettings();
+  }, [tipBreakdownSetting, coversSetting, salesSetting]);
 
   return (
     <SafeAreaView style={styles.background}>
@@ -132,6 +160,11 @@ const Settings = () => {
               value={salesSetting}
             />
           </TouchableOpacity>
+          <FixedContent
+            ref={(el) => {
+              modal[1] = el;
+            }}
+          />
           <TouchableOpacity style={styles.settingsRow}>
             <Text style={styles.smallText}>Covers/Guests</Text>
             <Switch
@@ -147,7 +180,10 @@ const Settings = () => {
             />
           </TouchableOpacity>
           <Text style={styles.largeText}>App Settings</Text>
-          <TouchableOpacity style={styles.settingsRow}>
+          <TouchableOpacity
+            style={styles.settingsRow}
+            onPress={() => modal[1].openModal()}
+          >
             <Text style={styles.smallText}>My Jobs</Text>
           </TouchableOpacity>
           <Text style={styles.largeText}>Terms & Agreements</Text>
