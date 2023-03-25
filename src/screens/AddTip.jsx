@@ -28,8 +28,11 @@ const AddTip = ({ navigation }) => {
     { key: "3", value: "bartender" },
   ];
 
+  console.log(cashTips, creditTips);
+
   const addTip = async (date, cashTips, creditTips, job, hours, notes) => {
     setErrorMessage("");
+    console.log(cashTips, creditTips);
     const { data, error } = await supabase.from("tips").insert([
       {
         user_id: userID,
@@ -46,13 +49,12 @@ const AddTip = ({ navigation }) => {
       setErrorMessage(error.message);
       console.log(error);
     }
-    if (!error) {
-      setCashTips();
-      setCreditTips();
-      setHours();
-      setNotes();
-      navigation.navigate("Dashboard");
-    }
+
+    setCashTips(0);
+    setCreditTips(0);
+    setHours(0);
+    setNotes("");
+    navigation.navigate("Dashboard");
   };
 
   const findUserID = async () => {

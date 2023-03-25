@@ -7,6 +7,7 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../config/supabaseConfig";
 import SwitchSelector from "react-native-switch-selector";
@@ -69,21 +70,21 @@ const Dashboard = ({ navigation }) => {
               }
             />
           </View>
-          <View style={styles.row}></View>
           {userTips &&
             userTips.data.map((userTip) => (
               <View style={styles.tipRow} key={userTip.id}>
+                <FontAwesome name="dollar" size={24} color="black" />
                 <Text style={styles.smallText}>{format(userTip.date)}</Text>
                 <Text style={styles.smallText}>{userTip.job}</Text>
                 <Text style={styles.smallText}>{userTip.hours}hrs</Text>
-                <View style={styles.padding}>
+                {/* <View style={styles.padding}>
                   <Text style={styles.smallText}>
                     Credit: ${userTip.credit_tips}
                   </Text>
                   <Text style={styles.smallText}>
                     Cash: ${userTip.cash_tips}
                   </Text>
-                </View>
+                </View> */}
               </View>
             ))}
         </View>
@@ -133,8 +134,11 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 4,
     marginBottom: 4,
-    backgroundColor: "#1c1c1c",
+    backgroundColor: "#282828",
     borderRadius: 10,
+    borderColor: "#1c1c1c",
+    borderStyle: "solid",
+    borderWidth: 2,
   },
   smallText: {
     color: "gray",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,31 +12,12 @@ export class FixedContent extends React.PureComponent {
   modal = React.createRef();
 
   renderContent = () => {
-    const [employer, setEmployer] = useState("");
-    const [position, setPosition] = useState("");
-    const [wage, setWage] = useState("");
-
     return (
       <View style={s.content}>
         <Text style={s.content__heading}>Add a new job</Text>
-        <TextInput
-          style={s.content__input}
-          placeholder="Employer Name"
-          value={employer}
-          onChange={(employer) => setEmployer(employer)}
-        />
-        <TextInput
-          style={s.content__input}
-          placeholder="Position"
-          value={position}
-          onChange={(position) => setPosition(position)}
-        />
-        <TextInput
-          style={s.content__input}
-          placeholder="Wage"
-          value={wage}
-          onChange={(wage) => setWage(wage)}
-        />
+        <TextInput style={s.content__input} placeholder="Employer Name" />
+        <TextInput style={s.content__input} placeholder="Position" />
+        <TextInput style={s.content__input} placeholder="Wage" />
 
         <TouchableOpacity
           style={s.content__button}

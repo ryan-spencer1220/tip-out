@@ -1,9 +1,17 @@
 {
   "expo": {
     "name": "Tip Out",
-    "slug": "tipster",
+    "slug": "tip-out",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a8f6c789-e011-4698-95d0-0691351c56cc"
+      }
+    },
+    "owner": "rspencer1220"
   },
   "name": "Tip Out"
 }
