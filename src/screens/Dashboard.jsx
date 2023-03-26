@@ -7,15 +7,19 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../config/supabaseConfig";
-import SwitchSelector from "react-native-switch-selector";
+import { useIsFocused } from "@react-navigation/native";
 
 const Dashboard = ({ navigation }) => {
   const [userTips, setUserTips] = useState();
   const [refreshing, setRefreshing] = useState(false);
   const [timeframe, setTimeframe] = useState(7);
+
+  const isFocused = useIsFocused();
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -31,14 +35,14 @@ const Dashboard = ({ navigation }) => {
 
   useEffect(() => {
     getTips();
-  }, [refreshing]);
+  }, [refreshing, isFocused]);
 
   function format(date) {
     let year = date.slice(0, 4);
     let month = date.slice(5, 7);
     let day = date.slice(8, 10);
 
-    return `${day}/${month}/${year}`;
+    return `${month}/${day}`;
   }
 
   const options = [
@@ -61,31 +65,40 @@ const Dashboard = ({ navigation }) => {
         }
       >
         <View style={styles.content}>
-          <View style={styles.buttonRow}>
-            <SwitchSelector
-              options={options}
-              initial={0}
-              onPress={(value) =>
-                console.log(`Call onPress with value: ${value}`)
-              }
-            />
-          </View>
           {userTips &&
             userTips.data.map((userTip) => (
-              <View style={styles.tipRow} key={userTip.id}>
-                <FontAwesome name="dollar" size={24} color="black" />
-                <Text style={styles.smallText}>{format(userTip.date)}</Text>
-                <Text style={styles.smallText}>{userTip.job}</Text>
-                <Text style={styles.smallText}>{userTip.hours}hrs</Text>
-                {/* <View style={styles.padding}>
-                  <Text style={styles.smallText}>
-                    Credit: ${userTip.credit_tips}
+              <TouchableOpacity style={styles.tipRow} key={userTip.id}>
+                <View style={styles.row}>
+                  <Text style={styles.moneyText}>
+                    $
+                    {Math.floor(
+                      (userTip.credit_tips + userTip.cash_tips) / userTip.hours
+                    )}
+                    <Text style={styles.smallText}>/ hr</Text>
                   </Text>
+                </View>
+                <View style={styles.row}>
                   <Text style={styles.smallText}>
-                    Cash: ${userTip.cash_tips}
+                    <Entypo name="calendar" size={24} color="#2b825b" />
+                    {`  ${format(userTip.date)}`}
                   </Text>
-                </View> */}
-              </View>
+                  <View style={styles.iconFlex}>
+                    <Text style={styles.smallText}>
+                      <FontAwesome5
+                        name="money-bill"
+                        size={24}
+                        color="#2b825b"
+                      />
+                      {`  $${userTip.cash_tips + userTip.credit_tips}`}
+                    </Text>
+                  </View>
+
+                  <Text style={styles.smallText}>
+                    <AntDesign name="clockcircleo" size={24} color="#2b825b" />
+                    {` ${userTip.hours}hrs`}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             ))}
         </View>
       </ScrollView>
@@ -115,35 +128,40 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "center",
-  },
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 10,
+    justifyContent: "space-between",
   },
   padding: {
     padding: 10,
+    margin: 10,
+  },
+  iconFlex: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   tipRow: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    width: "100%",
-    height: 50,
-    marginTop: 4,
-    marginBottom: 4,
+    flexDirection: "column",
+    marginTop: 6,
+    marginBottom: 6,
     backgroundColor: "#282828",
     borderRadius: 10,
     borderColor: "#1c1c1c",
     borderStyle: "solid",
     borderWidth: 2,
+    padding: 20,
   },
   smallText: {
     color: "gray",
     fontFamily: "Inter_800ExtraBold",
-    marginStart: 16,
+    marginStart: 20,
+    fontSize: 18,
+  },
+  moneyText: {
+    color: "#2b825b",
+    fontWeight: "bold",
+    fontSize: 40,
   },
   sortButton: {
     padding: 8,
